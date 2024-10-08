@@ -4,20 +4,20 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
+
 class ProductFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    
+    public function run(): void
     {
-        return [
-            //
-        ];
+        $faker = Faker::create();
+        for ($i=0; $i < 10; $i++) { 
+            DB::table('products')->insert([
+                'name' => $faker->word,
+                'description' => $faker->sentence,
+                'price' => $faker->randomFloat(2, 50, 1000),
+                'stock' => $faker->numberBetween(1, 100),
+            ]);
+        }
     }
 }
